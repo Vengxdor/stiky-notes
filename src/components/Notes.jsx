@@ -6,11 +6,14 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 export function Notes({stickyNote, setStickyNote}) {
 
 	const deleteNote = (index) =>{
-		const updateNotes = [...stickyNote]
-		updateNotes.splice(index, 1)
-		localStorage.removeItem('notes')
-		setStickyNote(updateNotes)
-
+		// create a new array without the eliminate one 
+		const updatedNotes = stickyNote.filter((_, i) => i !== index);
+ 		setStickyNote(updatedNotes);
+	
+	  const storedNotes = JSON.parse(localStorage.getItem('notes'));
+	  const updatedStorageNotes = storedNotes.filter((_, i) => i !== index);
+	  localStorage.setItem('notes', JSON.stringify(updatedStorageNotes));
+	
 		
 	}  
 
